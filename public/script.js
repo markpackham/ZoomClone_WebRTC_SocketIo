@@ -32,6 +32,11 @@ navigator.mediaDevices
     });
   });
 
+socket.on("user-disconnected", (userId) => {
+  // make sure there's actually a connection there to close
+  if (peers[userId]) peers[userId].close();
+});
+
 myPeer.on("open", (id) => {
   socket.emit("join-room", ROOM_ID, 10);
 });
